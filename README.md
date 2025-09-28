@@ -1,35 +1,48 @@
 # ESP32 Sumobot Project - Bluetooth Controlled Robot
 
+[![ESP32](https://img.shields.io/badge/ESP32-Development%20Board-blue)](https://www.espressif.com/en/products/socs/esp32)
+[![Python](https://img.shields.io/badge/Python-3.7+-green)](https://python.org)
+[![Arduino](https://img.shields.io/badge/Arduino-IDE-orange)](https://www.arduino.cc/en/software)
+[![Bluetooth](https://img.shields.io/badge/Bluetooth-Classic-blue)](https://www.bluetooth.com/)
+
 ## 🎯 Project Overview
 
 This project demonstrates the creation of a **Bluetooth-controlled sumobot** using ESP32 microcontroller, PS5 DualSense controller, and BTS7960 motor drivers. The robot can be controlled wirelessly from a Windows laptop using a custom dashboard application.
 
+> **🎓 Educational Value**: This project showcases practical application of embedded systems, wireless communication, and user interface design in robotics applications.
+
 ## 🏆 Learning Objectives
 
-- **ESP32 Programming**: Bluetooth communication, GPIO control, motor interfacing
-- **Motor Control**: BTS7960 driver implementation, differential drive logic
-- **Wireless Communication**: Bluetooth Classic protocol, serial communication
-- **User Interface**: Python dashboard with real-time control visualization
-- **System Integration**: Hardware-software integration, debugging techniques
+- **🔧 ESP32 Programming**: Bluetooth communication, GPIO control, motor interfacing
+- **⚙️ Motor Control**: BTS7960 driver implementation, differential drive logic
+- **📡 Wireless Communication**: Bluetooth Classic protocol, serial communication
+- **🖥️ User Interface**: Python dashboard with real-time control visualization
+- **🔗 System Integration**: Hardware-software integration, debugging techniques
 
 ## 🛠️ Hardware Components
 
 ### Main Controller
-- **ESP32 Development Board** (ESP32-WROOM-32)
-- **Power**: 5V input via VIN pin
-- **GPIO**: 34 digital pins available
-- **Built-in Features**: WiFi, Bluetooth Classic, ADC, PWM
+| Component | Specification | Purpose |
+|-----------|---------------|---------|
+| **ESP32 Development Board** | ESP32-WROOM-32 | Main microcontroller |
+| **Power Input** | 5V via VIN pin | Power supply |
+| **GPIO Pins** | 34 digital pins | Motor control, sensors |
+| **Built-in Features** | WiFi, Bluetooth Classic, ADC, PWM | Communication & control |
 
 ### Motor Control System
-- **Motors**: 2x DC Motors (6V-12V, 200-500 RPM)
-- **Motor Driver**: BTS7960 Dual H-Bridge Motor Driver
-- **Power Supply**: 7.4V-12V LiPo battery or 9V battery pack
-- **Current Capacity**: Up to 43A per channel
+| Component | Specification | Purpose |
+|-----------|---------------|---------|
+| **Motors** | 2x DC Motors (6V-12V, 200-500 RPM) | Robot movement |
+| **Motor Driver** | BTS7960 Dual H-Bridge | Motor control |
+| **Power Supply** | 7.4V-12V LiPo battery | System power |
+| **Current Capacity** | Up to 43A per channel | High current handling |
 
 ### Control Interface
-- **Controller**: PS5 DualSense Wireless Controller
-- **Communication**: Bluetooth Classic (built-in ESP32)
-- **Dashboard**: Windows Python application with real-time visualization
+| Component | Type | Communication |
+|-----------|------|---------------|
+| **Controller** | PS5 DualSense Wireless | Bluetooth Classic |
+| **Dashboard** | Windows Python Application | Serial Communication |
+| **Microcontroller** | ESP32 | Built-in Bluetooth |
 
 ## 📋 Pin Configuration
 
@@ -69,62 +82,75 @@ Battery (7.4V-12V)
 ## 📡 Communication Protocol
 
 ### Data Format
-```
+```cpp
 F <throttle> <turn> <brake> <rotate> <gear_boost>
 ```
 
 ### Parameters
-- **throttle**: -1.0 to 1.0 (forward/backward movement)
-- **turn**: -1.0 to 1.0 (left/right steering)
-- **brake**: 0 or 1 (emergency stop)
-- **rotate**: 0 or 1 (spin in place)
-- **gear_boost**: 0 or 1 (speed multiplier)
+| Parameter | Range | Description |
+|-----------|-------|-------------|
+| **throttle** | -1.0 to 1.0 | Forward/backward movement |
+| **turn** | -1.0 to 1.0 | Left/right steering |
+| **brake** | 0 or 1 | Emergency stop |
+| **rotate** | 0 or 1 | Spin in place |
+| **gear_boost** | 0 or 1 | Speed multiplier |
 
 ### Example Commands
-```
-F 0.500 0.000 0 0 0    # Forward at 50% speed
-F 0.000 0.300 0 0 0    # Turn right
-F 0.000 0.000 1 0 0    # Emergency brake
-F 0.000 0.000 0 1 0    # Rotate in place
-F 0.800 0.000 0 0 1    # Forward with boost
+```cpp
+F 0.500 0.000 0 0 0    // Forward at 50% speed
+F 0.000 0.300 0 0 0    // Turn right
+F 0.000 0.000 1 0 0    // Emergency brake
+F 0.000 0.000 0 1 0    // Rotate in place
+F 0.800 0.000 0 0 1    // Forward with boost
 ```
 
 ## 🎮 Control Mapping
 
 ### PS5 DualSense Controller
-- **Left Stick (Y-axis)**: Throttle control (forward/backward)
-- **Left Stick (X-axis)**: Turn control (left/right)
-- **R2 Trigger**: Brake (emergency stop)
-- **X Button**: Rotate (spin in place)
-- **Square Button**: Gear boost (speed increase)
+| Input | Function | Description |
+|-------|----------|-------------|
+| **Left Stick (Y-axis)** | Throttle | Forward/backward movement |
+| **Left Stick (X-axis)** | Turn | Left/right steering |
+| **R2 Trigger** | Brake | Emergency stop |
+| **X Button** | Rotate | Spin in place |
+| **Square Button** | Gear Boost | Speed increase |
 
 ### Keyboard Controls (Fallback)
-- **W/S**: Throttle (forward/backward)
-- **A/D**: Turn (left/right)
-- **B**: Brake
-- **X**: Rotate
-- **Space**: Deadman switch
+| Key | Function | Description |
+|-----|----------|-------------|
+| **W/S** | Throttle | Forward/backward |
+| **A/D** | Turn | Left/right |
+| **B** | Brake | Emergency stop |
+| **X** | Rotate | Spin in place |
+| **Space** | Deadman | Safety switch |
 
 ## 🚀 Setup Instructions
 
 ### 1. Hardware Assembly
-1. **Connect ESP32 to BTS7960**:
-   - GPIO 17 → Left RPWM
-   - GPIO 18 → Left LPWM
-   - GPIO 19 → Right RPWM
-   - GPIO 21 → Right LPWM
-   - 5V → Enable pins (tied to 5V)
-   - GND → Common ground
 
-2. **Connect Motors**:
-   - Left motor to BTS7960 OUT1, OUT2
-   - Right motor to BTS7960 OUT3, OUT4
-   - Motor power from battery (7.4V-12V)
+#### ESP32 to BTS7960 Connections
+```bash
+GPIO 17 → Left RPWM
+GPIO 18 → Left LPWM
+GPIO 19 → Right RPWM
+GPIO 21 → Right LPWM
+5V → Enable pins (tied to 5V)
+GND → Common ground
+```
 
-3. **Power Supply**:
-   - ESP32 VIN from 5V source
-   - BTS7960 VCC from battery
-   - Common ground connection
+#### Motor Connections
+```bash
+Left motor → BTS7960 OUT1, OUT2
+Right motor → BTS7960 OUT3, OUT4
+Motor power → Battery (7.4V-12V)
+```
+
+#### Power Supply
+```bash
+ESP32 VIN → 5V source
+BTS7960 VCC → Battery
+Common ground → All components
+```
 
 ### 2. Software Installation
 
@@ -137,13 +163,14 @@ F 0.800 0.000 0 0 1    # Forward with boost
 4. **Select Board**: "ESP32 Dev Module"
 
 #### Windows Dashboard Setup
-1. **Install Python Dependencies**:
-   ```bash
-   pip install pygame pyserial tkinter
-   ```
-2. **Download Project Files**:
-   - `esp32-test.ino` (ESP32 code)
-   - `BT_Dashboard.py` (Windows dashboard)
+```bash
+# Install Python dependencies
+pip install pygame pyserial tkinter
+
+# Download project files
+git clone <repository-url>
+cd sumobot
+```
 
 ### 3. Programming and Testing
 
@@ -170,35 +197,40 @@ F 0.800 0.000 0 0 1    # Forward with boost
    - Create COM port (Outgoing)
 
 #### Dashboard Testing
-1. **Run Dashboard**:
-   ```bash
-   python BT_Dashboard.py --com COMx --dashboard
-   ```
-   (Replace COMx with actual COM port)
+```bash
+# Run dashboard
+python BT_Dashboard.py --com COMx --dashboard
 
-2. **Test Controller**:
-   - Connect PS5 controller via Bluetooth
-   - Move left stick to control robot
-   - Press buttons for special functions
+# Test controller
+# Connect PS5 controller via Bluetooth
+# Move left stick to control robot
+# Press buttons for special functions
+```
 
 ## 🔍 Troubleshooting
 
 ### Common Issues
 
 #### Bluetooth Connection
-- **"Could not open port"**: Wrong COM port or already in use
-- **"Semaphore timeout"**: Close Serial Monitor, try different COM port
-- **"Access denied"**: Another app is using the port
+| Error | Cause | Solution |
+|-------|-------|---------|
+| **"Could not open port"** | Wrong COM port or already in use | Check Device Manager, close other apps |
+| **"Semaphore timeout"** | Port in use | Close Serial Monitor, try different COM port |
+| **"Access denied"** | Another app using port | Close all serial applications |
 
 #### Motor Issues
-- **Motors not moving**: Check power supply (7.4V-12V)
-- **Wrong direction**: Swap motor wires on BTS7960
-- **Noisy operation**: Add capacitors (100µF) across motor terminals
+| Problem | Cause | Solution |
+|--------|-------|---------|
+| **Motors not moving** | Insufficient power | Check power supply (7.4V-12V) |
+| **Wrong direction** | Incorrect wiring | Swap motor wires on BTS7960 |
+| **Noisy operation** | Electrical interference | Add capacitors (100µF) across motor terminals |
 
 #### ESP32 Issues
-- **Upload fails**: Hold BOOT button during upload
-- **Bluetooth not found**: Check device name in code
-- **Random resets**: Check power supply stability
+| Problem | Cause | Solution |
+|--------|-------|---------|
+| **Upload fails** | Boot mode not entered | Hold BOOT button during upload |
+| **Bluetooth not found** | Device name mismatch | Check device name in code |
+| **Random resets** | Power instability | Check power supply stability |
 
 ### Debugging Steps
 1. **Check Serial Monitor** for error messages
@@ -210,44 +242,46 @@ F 0.800 0.000 0 0 1    # Forward with boost
 ## 📊 Performance Metrics
 
 ### System Performance
-- **Latency**: ~5-10ms (extremely responsive)
-- **Bluetooth Range**: 10-30 meters
-- **Motor Speed**: 0-100% (smooth control)
-- **Battery Life**: 30-60 minutes (depending on usage)
+| Metric | Value | Notes |
+|--------|-------|-------|
+| **Latency** | ~5-10ms | Extremely responsive |
+| **Bluetooth Range** | 10-30 meters | Depends on environment |
+| **Motor Speed** | 0-100% | Smooth control |
+| **Battery Life** | 30-60 minutes | Depends on usage |
 
 ### Control Features
-- **Differential Drive**: Independent left/right motor control
-- **Speed Control**: Variable speed based on stick position
-- **Special Functions**: Brake, rotate, gear boost
-- **Real-time Feedback**: LED indicators and dashboard visualization
+- **🔄 Differential Drive**: Independent left/right motor control
+- **⚡ Speed Control**: Variable speed based on stick position
+- **🛑 Special Functions**: Brake, rotate, gear boost
+- **📊 Real-time Feedback**: LED indicators and dashboard visualization
 
 ## 🎓 Learning Outcomes
 
 ### Technical Skills Developed
-- **Microcontroller Programming**: ESP32 development and debugging
-- **Motor Control Systems**: H-bridge drivers and PWM control
-- **Wireless Communication**: Bluetooth protocol implementation
-- **User Interface Design**: Python GUI development
-- **System Integration**: Hardware-software coordination
+- **🔧 Microcontroller Programming**: ESP32 development and debugging
+- **⚙️ Motor Control Systems**: H-bridge drivers and PWM control
+- **📡 Wireless Communication**: Bluetooth protocol implementation
+- **🖥️ User Interface Design**: Python GUI development
+- **🔗 System Integration**: Hardware-software coordination
 
 ### Problem-Solving Skills
-- **Debugging Techniques**: Serial monitoring, LED indicators
-- **Hardware Troubleshooting**: Connection verification, power analysis
-- **Software Optimization**: Latency reduction, performance tuning
-- **Documentation**: Code commenting, README creation
+- **🐛 Debugging Techniques**: Serial monitoring, LED indicators
+- **🔧 Hardware Troubleshooting**: Connection verification, power analysis
+- **⚡ Software Optimization**: Latency reduction, performance tuning
+- **📚 Documentation**: Code commenting, README creation
 
 ## 🔮 Future Enhancements
 
 ### Hardware Improvements
-- **Sensors**: Ultrasonic (HC-SR04), IMU (MPU6050), line sensors
-- **Power Management**: Battery monitoring, low voltage protection
-- **Safety Features**: Physical kill switch, current limiting
+- **📡 Sensors**: Ultrasonic (HC-SR04), IMU (MPU6050), line sensors
+- **🔋 Power Management**: Battery monitoring, low voltage protection
+- **🛡️ Safety Features**: Physical kill switch, current limiting
 
 ### Software Features
-- **WiFi Dashboard**: Web-based control interface
-- **Data Logging**: Movement recording and analysis
-- **Autonomous Mode**: Line following, obstacle avoidance
-- **Mobile App**: Android/iOS control application
+- **🌐 WiFi Dashboard**: Web-based control interface
+- **📊 Data Logging**: Movement recording and analysis
+- **🤖 Autonomous Mode**: Line following, obstacle avoidance
+- **📱 Mobile App**: Android/iOS control application
 
 ## 📁 Project Files
 
@@ -264,10 +298,10 @@ sumobot/
 
 ## 👥 Team Members
 
-- **Hardware Design**: ESP32 integration, motor driver selection
-- **Software Development**: Bluetooth communication, dashboard UI
-- **Testing & Debugging**: System integration, performance optimization
-- **Documentation**: README creation, troubleshooting guide
+- **🔧 Hardware Design**: ESP32 integration, motor driver selection
+- **💻 Software Development**: Bluetooth communication, dashboard UI
+- **🧪 Testing & Debugging**: System integration, performance optimization
+- **📚 Documentation**: README creation, troubleshooting guide
 
 ## 📚 References
 
@@ -288,5 +322,3 @@ sumobot/
 ---
 
 **This project demonstrates practical application of embedded systems, wireless communication, and user interface design in robotics applications.**
-#   s u m o b o t - e m b e d d e d - s y s t e m s  
- 
