@@ -61,7 +61,3 @@ This project demonstrates the creation of a **Bluetooth-controlled sumobot** usi
   <img width="426" height="241" alt="image" src="https://github.com/user-attachments/assets/cc01eaa5-60d4-41ec-82e5-adaeb9e69575" />
   <img width="426" height="241" alt="image" src="https://github.com/user-attachments/assets/f687ad96-a6cc-44ed-af2d-73bf1802bab2" />
 
-
-
-
-**This project demonstrates the creation of a **Bluetooth-controlled sumobot** using ESP32 microcontroller, PS5 DualSense controller, and BTS7960 motor drivers. The robot can be controlled wirelessly using a PS5 controller.**
