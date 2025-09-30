@@ -34,13 +34,6 @@ This project demonstrates the creation of a **Bluetooth-controlled sumobot** usi
 | **Power Supply** | 7.4V-12V LiPo battery | System power |
 | **Current Capacity** | Up to 43A per channel | High current handling |
 
-### Control Interface
-| Component | Type | Communication |
-|-----------|------|---------------|
-| **Controller** | PS5 DualSense Wireless | Bluetooth Classic |
-| **Dashboard** | Windows Python Application | Serial Communication |
-| **Microcontroller** | ESP32 | Built-in Bluetooth |
-
 ## 🔧 Software Architecture
 
 ### ESP32 Code (`esp32-test.ino`)
