@@ -58,7 +58,7 @@ This project demonstrates the creation of a **Bluetooth-controlled sumobot** usi
 - **🛑 Special Functions**: Brake, rotate, gear boost
 - **📊 Real-time Feedback**: LED indicators and dashboard visualizatio
 
-  <img width="362" height="226" alt="image" src="https://github.com/user-attachments/assets/cc01eaa5-60d4-41ec-82e5-adaeb9e69575" />
+  <img width="426" height="241" alt="image" src="https://github.com/user-attachments/assets/cc01eaa5-60d4-41ec-82e5-adaeb9e69575" />
   <img width="426" height="241" alt="image" src="https://github.com/user-attachments/assets/f687ad96-a6cc-44ed-af2d-73bf1802bab2" />
 
 
